@@ -44,3 +44,43 @@ par(mfrow = c(1,2), mar = c(5,4,2,1))
 with(subset(pollution, region == "west"), plot(latitude, pm25, main = "West"))
 with(subset(pollution, region == "east"), plot(latitude, pm25, main = "East"))
 
+# base plot
+library(datasets)
+data(cars)
+with(cars, plot(speed, dist))
+
+# lattice system
+library(lattice)
+state <- data.frame(state.x77, region = state.region)
+xyplot(Life.Exp ~ Income | region, data = state, layout = c(4,1))
+
+# ggplot2 system
+library(ggplot2)
+data(mpg)
+qplot(displ, hwy, data = mpg)
+
+#base plotting system, create graphic on screen
+hist(airquality$Ozone)
+with(airquality, plot(Wind, Ozone))
+airquality <- transform(airquality, Month = facto(Month))
+boxplot(Ozone ~ Month, airquality, xlab = "Month", ylab = "Ozone ppb")
+
+#base graphics parameters
+par("lty")
+par("col")
+par("pch")
+par("bg")
+par("mar")
+par("mfrow")
+
+#annotations
+with(airquality, plot(Wind, Ozone))
+title(main = "Ozone and Wind in New York City") 
+
+with(airquality, plot(Wind, Ozone,main = "Ozone and Wind in New York City"))
+with(subset(airquality, Month == 5), points(Wind, Ozone, col = "blue"))
+
+with(airquality, plot(Wind, Ozone,main = "Ozone and Wind in New York City", type = "n"))
+with(subset(airquality, Month == 5), points(Wind, Ozone, col = "blue"))
+with(subset(airquality, Month != 5), points(Wind, Ozone, col = "red"))
+legend("topright", pch = 1, col = c("blue", "red"), legend = c("May","Other Months"))
