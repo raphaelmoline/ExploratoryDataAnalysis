@@ -1,0 +1,7 @@
+#plot 3 (data already loaded)
+plot(data$Time, data$Sub_metering_1, type = "l", xlab ="", ylab = "Energy sub metering")
+points(data$Time, data$Sub_metering_2, col = "red", type = "l")
+points(data$Time, data$Sub_metering_3, col = "blue", type = "l")
+legend("topright", pch = "_" , col = c("black", "red", "blue"), legend = names(data)[7:9])
+dev.copy(png, file = "plot3.png")
+dev.off()
