@@ -62,7 +62,7 @@ qplot(displ, hwy, data = mpg)
 #base plotting system, create graphic on screen
 hist(airquality$Ozone)
 with(airquality, plot(Wind, Ozone))
-airquality <- transform(airquality, Month = facto(Month))
+airquality <- transform(airquality, Month = factor(Month))
 boxplot(Ozone ~ Month, airquality, xlab = "Month", ylab = "Ozone ppb")
 
 #base graphics parameters
@@ -74,6 +74,7 @@ par("mar")
 par("mfrow")
 
 #annotations
+par(mfrow = c(1,1))
 with(airquality, plot(Wind, Ozone))
 title(main = "Ozone and Wind in New York City") 
 
@@ -84,3 +85,34 @@ with(airquality, plot(Wind, Ozone,main = "Ozone and Wind in New York City", type
 with(subset(airquality, Month == 5), points(Wind, Ozone, col = "blue"))
 with(subset(airquality, Month != 5), points(Wind, Ozone, col = "red"))
 legend("topright", pch = 1, col = c("blue", "red"), legend = c("May","Other Months"))
+
+#adding regression line
+
+with(airquality, plot(Wind, Ozone,main = "Ozone and Wind in New York City", pch = 20))
+model <- lm(Ozone ~ Wind, airquality)
+abline(model, lwd = 2)
+#multiple plots
+par(mfrow = c(2,1))
+with(airquality, {
+    plot(Wind, Ozone, main = "Ozone and Wind")
+    plot(Solar.R, Ozone, main = "Ozone and Solar Radiation")
+})
+
+#demo
+par(mfrow = c(1,1))
+x <- rnorm(100)
+hist(x)
+y <- rnorm(100)
+plot(x,y)
+z <- rnorm(100)
+plot(x,z)
+par(mar = c(2,2,2,2))
+plot(x,z)
+par(mar = c(4,4,2,2))
+plot(x,z)
+plot(x,z,pch = 20)
+title('Scatterplot')
+text(-1, -1, "test")
+legend("topleft", legend = "data", pch = 20)
+fit <- lm(y ~ x)
+abline(fit)
